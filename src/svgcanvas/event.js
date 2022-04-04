@@ -583,6 +583,14 @@ const mouseUpEvent = (evt) => {
   switch (svgCanvas.getCurrentMode()) {
     // intentionally fall-through to select here
     case 'resize':
+      svgCanvas.getRubberBox().setAttribute('display', 'none')
+      svgCanvas.setCurBBoxes([])
+      console.log(svgCanvas);
+
+      if(selectedElements[0].tagName && selectedElements[0].tagName === 'text') {
+        svgCanvas.textActions.select(selectedElements[0], 1, 1)
+        svgCanvas.textActions.setCursor(selectedElements[0].textContent.length)
+      }
     case 'multiselect':
       if (svgCanvas.getRubberBox()) {
         svgCanvas.getRubberBox().setAttribute('display', 'none')
@@ -1003,6 +1011,19 @@ const mouseDownEvent = (evt) => {
       svgCanvas.setCurrentResizeMode(dataStorage.get(grip, 'dir'))
     }
     mouseTarget = selectedElements[0]
+
+    /** Just commenting what I've tried earlier */ 
+    // // Setting specific actions if the element is text
+    // if(selectedElements[0].tagName === 'text') {
+      // document.body.dispatchEvent(new Event('keydown'));
+      // _.debounce(() => svgCanvas.textActions.toEditMode());
+      // svgCanvas.textActions.mouseDown();
+      // svgCanvas.textActions.setInputElem(selectedElements[0])
+      // svgCanvas.textActions.setCursor()
+      // selectedElements[0].dispatchEvent(new Event('change'));
+      // selectedElements[0].dispatchEvent(new Event('keydown'));
+      // svgCanvas.call('changed', [selectedElements[0]])
+    // }
   }
 
   svgCanvas.setStartTransform(mouseTarget.getAttribute('transform'))
