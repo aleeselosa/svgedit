@@ -585,7 +585,6 @@ const mouseUpEvent = (evt) => {
     case 'resize':
       svgCanvas.getRubberBox().setAttribute('display', 'none')
       svgCanvas.setCurBBoxes([])
-      console.log(svgCanvas);
 
       if(selectedElements[0].tagName && selectedElements[0].tagName === 'text') {
         svgCanvas.textActions.select(selectedElements[0], 1, 1)
